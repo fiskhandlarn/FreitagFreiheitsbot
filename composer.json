@@ -1,5 +1,5 @@
 {
-  "name": "fiskhandlarn/FreitagFreiheitsbot",
+  "name": "fiskhandlarn/freitagfreiheitsbot",
   "type": "project",
   "license": "GPL-3.0-or-later",
   "authors": [
@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.3",
-    "longman/telegram-bot": "^0.75.0"
+    "longman/telegram-bot": "^0.75.0",
+    "vlucas/phpdotenv": "^5.4"
   }
 }
