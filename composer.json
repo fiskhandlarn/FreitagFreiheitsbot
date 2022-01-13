@@ -1,0 +1,15 @@
+{
+  "name": "fiskhandlarn/FreitagFreiheitsbot",
+  "type": "project",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Oskar Joelson",
+      "email": "oskar@joelson.org"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "longman/telegram-bot": "^0.75.0"
+  }
+}
