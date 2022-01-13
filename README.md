@@ -1,0 +1,2 @@
+# FreitagFreiheitsbot
+Ist heute Freitag?
