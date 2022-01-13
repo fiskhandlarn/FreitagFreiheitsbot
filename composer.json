@@ -12,5 +12,13 @@
     "php": ">=7.3",
     "longman/telegram-bot": "^0.75.0",
     "vlucas/phpdotenv": "^5.4"
+  },
+  "scripts": {
+    "lint": [
+      "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ]
   }
 }
