@@ -1,4 +1,6 @@
 .env
 .phpunit*
+/.docker/nginx/logs
+/.docker/ssl
 phpunit.xml
 vendor

@@ -1,0 +1,30 @@
+# inspired by https://github.com/mjstealey/wordpress-nginx-docker
+version: '3.6'
+services:
+
+  phpfpm:
+    image: php:${PHP_VERSION:-7.4-fpm}
+    env_file:
+      - ./.env
+      - ./.env.docker
+    container_name: phpfpm
+    volumes:
+      - ${WEBROOT_DIR:-.}:/var/www/html
+    restart: always
+
+  nginx:
+    image: nginx:${NGINX_VERSION:-alpine}
+    env_file:
+      - ./.env.docker
+    container_name: nginx
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${NGINX_CONF_FILE:-./.docker/nginx/default.conf}:/etc/nginx/conf.d/default.conf
+      - ${NGINX_LOG_DIR:-./.docker/nginx/logs}:/var/log/nginx
+      - ${SSL_CERTS_DIR:-./.docker/ssl}:/ssl
+      - ${WEBROOT_DIR:-.}:/var/www/html
+    depends_on:
+      - phpfpm
+    restart: always
