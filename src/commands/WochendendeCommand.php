@@ -47,7 +47,7 @@ class WochenendeCommand extends SystemCommand
     {
         return $this->replyToChat(
             'Ja, saufen!' . PHP_EOL . PHP_EOL .
-            'https://www.youtube.com/watch?v=3aGf0t69_xk' .
+            'https://www.youtube.com/watch?v=3aGf0t69_xk'
         );
     }
 }
