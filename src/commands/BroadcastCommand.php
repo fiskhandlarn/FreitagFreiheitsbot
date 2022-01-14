@@ -46,16 +46,36 @@ class BroadcastCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
-        // https://github.com/php-telegram-bot/core#send-message-to-all-active-chats
-        $results = Request::sendToActiveChats(
-            'sendMessage', // Callback function to execute (see Request.php methods)
-            ['text' => 'Hey! Check out the new features!!'], // Param to evaluate the request
-            [
-                'groups'      => true,
-                'supergroups' => true,
-                'channels'    => true,
-                'users'       => true,
-            ]
-        );
+        $message = false;
+
+        switch (intval(date('w'))) {
+            case 4: // thursday
+                $message = 'Morgen ist Freitag' . PHP_EOL .
+                    'https://www.youtube.com/watch?v=qcYTzV4HCyk';
+                break;
+            case 5: // friday
+                $message = 'Heute ist Freitag!' . PHP_EOL .
+                    'https://www.youtube.com/watch?v=kfVsfOSbJY0';
+                break;
+            case 6: // saturday
+            case 0: // sunday
+                $message = 'Heute ist Wochenende!' . PHP_EOL .
+                    'https://www.youtube.com/watch?v=cjgldht4PKw';
+                break;
+        }
+
+        if ($message) {
+            // https://github.com/php-telegram-bot/core#send-message-to-all-active-chats
+            $results = Request::sendToActiveChats(
+                'sendMessage', // Callback function to execute (see Request.php methods)
+                ['text' => $message], // Param to evaluate the request
+                [
+                    'groups'      => true,
+                    'supergroups' => true,
+                    'channels'    => true,
+                    'users'       => true,
+                ]
+            );
+        }
     }
 }
