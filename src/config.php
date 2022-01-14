@@ -34,6 +34,13 @@ return [
         'database' => $_ENV['DB_NAME'],
     ],
 
+    // Logging (Debug, Error and Raw Updates)
+    'logging'  => [
+        'debug'  => $_ENV['LOG_DIR'] . '/php-telegram-bot-debug.log',
+        'error'  => $_ENV['LOG_DIR'] . '/php-telegram-bot-error.log',
+        'update' => $_ENV['LOG_DIR'] . '/php-telegram-bot-update.log',
+    ],
+
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     'limiter'      => [
         'enabled' => true,

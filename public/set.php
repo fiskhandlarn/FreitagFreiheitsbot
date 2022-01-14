@@ -15,11 +15,6 @@ try {
     // Create Telegram API object
     $telegram = new Longman\TelegramBot\Telegram($config['api_key'], $config['bot_username']);
 
-    /**
-     * REMEMBER to define the URL to your hook.php file in:
-     * config.php: ['webhook']['url'] => 'https://your-domain/path/to/hook.php'
-     */
-
     // Set the webhook
     $result = $telegram->setWebhook($config['webhook']['url']);
 
@@ -28,5 +23,8 @@ try {
 
     echo $result->getDescription();
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
-    echo $e->getMessage();
+    // Log telegram errors
+    Longman\TelegramBot\TelegramLog::error($e);
+
+    // echo $e->getMessage();
 }

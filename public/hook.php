@@ -17,6 +17,20 @@ try {
     // Enable MySQL if required
     $telegram->enableMySql($config['mysql']);
 
+    // Logging (Error, Debug and Raw Updates)
+    // https://github.com/php-telegram-bot/core/blob/master/doc/01-utils.md#logging
+    //
+    // (this example requires Monolog: composer require monolog/monolog)
+    Longman\TelegramBot\TelegramLog::initialize(
+       new Monolog\Logger('telegram_bot', [
+           (new Monolog\Handler\StreamHandler($config['logging']['debug'], Monolog\Logger::DEBUG))->setFormatter(new Monolog\Formatter\LineFormatter(null, null, true)),
+           (new Monolog\Handler\StreamHandler($config['logging']['error'], Monolog\Logger::ERROR))->setFormatter(new Monolog\Formatter\LineFormatter(null, null, true)),
+       ]),
+       new Monolog\Logger('telegram_bot_updates', [
+           (new Monolog\Handler\StreamHandler($config['logging']['update'], Monolog\Logger::INFO))->setFormatter(new Monolog\Formatter\LineFormatter('%message%' . PHP_EOL)),
+       ])
+    );
+
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     $telegram->enableLimiter($config['limiter']);
 
