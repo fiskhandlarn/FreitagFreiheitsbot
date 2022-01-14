@@ -27,6 +27,14 @@ return [
         ],
     ],
 
+    // Enter your MySQL database credentials
+    'mysql'        => [
+        'host'     => $_ENV['DB_HOST'],
+        'user'     => $_ENV['DB_USER'],
+        'password' => $_ENV['DB_PASSWORD'],
+        'database' => $_ENV['DB_NAME'],
+    ],
+
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     'limiter'      => [
         'enabled' => true,

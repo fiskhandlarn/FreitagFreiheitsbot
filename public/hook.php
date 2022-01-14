@@ -14,6 +14,9 @@ try {
     // Add commands paths containing your custom commands
     $telegram->addCommandsPaths($config['commands']['paths']);
 
+    // Enable MySQL if required
+    $telegram->enableMySql($config['mysql']);
+
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     $telegram->enableLimiter($config['limiter']);
 
