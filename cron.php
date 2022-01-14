@@ -28,6 +28,21 @@ try {
     $result = $telegram->runCommands($commands);
 
     echo (isset($result[0]) ? $result[0]->toJson() : 'failure') . "\n";
+    Longman\TelegramBot\TelegramLog::info($result);
+
+
+    $results = Request::sendToActiveChats(
+        'sendMessage', // Callback function to execute (see Request.php methods)
+        ['text' => 'Test from cron'], // Param to evaluate the request
+        [
+            'groups'      => true,
+            'supergroups' => true,
+            'channels'    => true,
+            'users'       => true,
+        ]
+    );
+
+    Longman\TelegramBot\TelegramLog::info($results);
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
