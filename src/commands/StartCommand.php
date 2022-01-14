@@ -55,8 +55,9 @@ class StartCommand extends SystemCommand
         // $deep_linking_parameter = $this->getMessage()->getText(true);
 
         return $this->replyToChat(
-            'Ist heute Freitag?' . PHP_EOL .
-            '🤷'
+            'Ist heute Freitag? 🤷' . PHP_EOL . PHP_EOL .
+            '/start Welcher Tag ist es?' . PHP_EOL .
+            '/wochendene' .
         );
     }
 }
