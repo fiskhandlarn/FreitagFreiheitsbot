@@ -45,10 +45,18 @@ class WochenendeCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
-        return $this->replyToChat(
-            'Ja, saufen!'
-            //. PHP_EOL . PHP_EOL .
-            //'https://www.youtube.com/watch?v=3aGf0t69_xk'
-        );
+        $weekday = date('w');
+        $hour = date('H');
+
+        if ($weekday === 5 || $weekday === 6 || $weekday === 7) {
+            return $this->replyToChat(
+                'Ja, saufen!' . PHP_EOL
+                'https://www.youtube.com/watch?v=3aGf0t69_xk'
+            );
+        } else {
+            return $this->replyToChat(
+                'Nein.'
+            );
+        }
     }
 }
