@@ -1,26 +1,32 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+/**
+ * This file is used to set the webhook.
+ */
 
-use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+// Load composer
+require_once __DIR__ . '/../vendor/autoload.php';
 
-
-$bot_api_key  = $_ENV['TELEGRAM_API_TOKEN'];
-$bot_username = 'FreitagFreiheitsbot';
-$hook_url     = $_SERVER['REQUEST_URI'] . '/path/to/hook.php';
+// Load all configuration options
+/** @var array $config */
+$config = require __DIR__ . '/../src/config.php';
 
 try {
     // Create Telegram API object
-    $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
+    $telegram = new Longman\TelegramBot\Telegram($config['api_key'], $config['bot_username']);
 
-    // Set webhook
-    $result = $telegram->setWebhook($hook_url);
-    if ($result->isOk()) {
-        echo $result->getDescription();
-    }
+    /**
+     * REMEMBER to define the URL to your hook.php file in:
+     * config.php: ['webhook']['url'] => 'https://your-domain/path/to/hook.php'
+     */
+
+    // Set the webhook
+    $result = $telegram->setWebhook($config['webhook']['url']);
+
+    // To use a self-signed certificate, use this line instead
+    // $result = $telegram->setWebhook($config['webhook']['url'], ['certificate' => $config['webhook']['certificate']]);
+
+    echo $result->getDescription();
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
-    // log telegram errors
     echo $e->getMessage();
 }
