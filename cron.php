@@ -31,7 +31,7 @@ try {
     Longman\TelegramBot\TelegramLog::info($result);
 
 
-    $results = Request::sendToActiveChats(
+    $results = Longman\TelegramBot\Request::sendToActiveChats(
         'sendMessage', // Callback function to execute (see Request.php methods)
         ['text' => 'Test from cron'], // Param to evaluate the request
         [
