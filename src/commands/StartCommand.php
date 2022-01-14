@@ -57,7 +57,7 @@ class StartCommand extends SystemCommand
         return $this->replyToChat(
             'Ist heute Freitag? 🤷' . PHP_EOL . PHP_EOL .
             '/start Welcher Tag ist es?' . PHP_EOL .
-            '/wochendene'
+            '/wochenende'
         );
     }
 }
