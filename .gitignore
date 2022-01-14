@@ -2,5 +2,6 @@
 .phpunit*
 /.docker/nginx/logs
 /.docker/ssl
+/secrets
 phpunit.xml
 vendor

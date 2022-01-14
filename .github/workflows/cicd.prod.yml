@@ -1,0 +1,48 @@
+name: CI/CD prod
+
+on:
+  push:
+    branches: main
+
+jobs:
+  test-php:
+    name: Test/lint PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: Lint all PHP files
+        run: find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n
+  deploy:
+    name: Deploy to prod
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
+      - name: Copy .env
+        run: printf "%s" "${{ secrets.PROD_ENV }}" > "$GITHUB_WORKSPACE/.env" # https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+      - name: Dump autoloader without plugins
+        run: composer dumpautoload --no-plugins
+      - name: Get Deployer version
+        run: vendor/bin/dep -V
+      - name: Deploy to server
+        run: vendor/bin/dep deploy prod -vvv
+        env:
+          SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.PROD_DEPLOY_PATH }}
+          DEPLOY_CHOWN: ${{ secrets.PROD_DEPLOY_CHOWN }}

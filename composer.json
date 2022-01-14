@@ -14,7 +14,9 @@
     "vlucas/phpdotenv": "^5.4"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.6"
+    "squizlabs/php_codesniffer": "^3.6",
+    "deployer/deployer": "^6.8",
+    "deployer/recipes": "^6.2"
   },
   "scripts": {
     "cs": "vendor/bin/phpcs",
