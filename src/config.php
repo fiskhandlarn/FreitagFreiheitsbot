@@ -13,8 +13,7 @@ return [
 
     // When using the getUpdates method, this can be commented out
     'webhook'      => [
-        'url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http") .
-        '://' . $_SERVER['HTTP_HOST'] . '/hook.php',
+        'url' => $_ENV['BASE_URL'] . '/hook.php',
         // Use self-signed certificate
         'certificate' => ('local' === $_ENV['ENV']) ? __DIR__ . '../.docker/ssl/server.key' : false,
     ],
