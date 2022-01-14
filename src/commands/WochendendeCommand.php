@@ -55,7 +55,7 @@ class WochenendeCommand extends SystemCommand
             );
         } else {
             return $this->replyToChat(
-                'Nein.' . ' ' . $weekday . ' ' . $hour
+                'Nein.'
             );
         }
     }
