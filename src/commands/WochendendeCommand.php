@@ -48,7 +48,7 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
-        if (5 === $weekday || 6 === $weekday || 0 === $weekday) {
+        if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
             return $this->replyToChat(
                 'Ja, saufen!' . PHP_EOL .
                 'https://www.youtube.com/watch?v=3aGf0t69_xk'
