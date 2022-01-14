@@ -27,7 +27,7 @@ try {
     // Run user selected commands
     $result = $telegram->runCommands($commands);
 
-    echo $result->getDescription();
+    echo isset($result[0]) ? $result[0]->toJson() : 'failure';
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
