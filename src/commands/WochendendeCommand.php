@@ -45,6 +45,8 @@ class WochenendeCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
+        date_default_timezone_set('Europe/Stockholm');
+
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 

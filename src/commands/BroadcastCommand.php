@@ -46,6 +46,8 @@ class BroadcastCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
+        date_default_timezone_set('Europe/Stockholm');
+
         $message = false;
 
         switch (intval(date('w'))) {
