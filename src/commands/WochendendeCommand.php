@@ -9,6 +9,7 @@ namespace Longman\TelegramBot\Commands\SystemCommands;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
+use Longman\TelegramBot\Request;
 
 class WochenendeCommand extends SystemCommand
 {
@@ -50,17 +51,17 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
-        $message = $this->getMessage();
-        $user_id = $message->getFrom()->getId();
-        return $this->replyToChat(
-            'test: ' . $user_id
-        );
-
         if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
-            return $this->replyToChat(
-                'Ja, saufen!' . PHP_EOL .
-                'https://www.youtube.com/watch?v=3aGf0t69_xk'
-            );
+            return Request::sendPhoto([
+                'chat_id' => $message->getFrom()->getId(),
+                'caption' => 'Ja, saufen!',
+                'photo'   => 'https://i.imgur.com/ZcQXwL1.gif',
+            ]);
+
+            // return $this->replyToChat(
+            //     'Ja, saufen!' . PHP_EOL .
+            //     'https://www.youtube.com/watch?v=3aGf0t69_xk'
+            // );
         } else {
             return $this->replyToChat(
                 'Nein.'
