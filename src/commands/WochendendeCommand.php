@@ -50,6 +50,12 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
+        $message = $this->getMessage();
+        $user_id = $message->getFrom()->getId();
+        return $this->replyToChat(
+            'test: ' . $user_id
+        );
+
         if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
             return $this->replyToChat(
                 'Ja, saufen!' . PHP_EOL .
