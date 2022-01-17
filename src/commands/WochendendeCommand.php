@@ -51,11 +51,16 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
-        if ($message = $this->getMessage() ?: $this->getEditedMessage() ?: $this->getChannelPost() ?: $this->getEditedChannelPost()) {
+        if (
+            $message = $this->getMessage() ?:
+            $this->getEditedMessage() ?:
+            $this->getChannelPost() ?:
+            $this->getEditedChannelPost()
+        ) {
             return Request::sendAnimation([
                 'chat_id' => $message->getFrom()->getId(),
                 'caption' => 'Ja, saufen!',
-                'animation'   => Request::encodeFile(__DIR__ . '/../../images/wochenende.gif');
+                'animation'   => Request::encodeFile(__DIR__ . '/../../images/wochenende.gif'),
             ]);
         } else {
             return $this->replyToChat(
