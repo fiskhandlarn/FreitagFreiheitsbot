@@ -51,28 +51,23 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
-        if (
-            $message = $this->getMessage() ?:
-            $this->getEditedMessage() ?:
-            $this->getChannelPost() ?:
-            $this->getEditedChannelPost()
-        ) {
-            return Request::sendAnimation([
-                'chat_id' => $message->getFrom()->getId(),
-                'caption' => 'Ja, saufen!',
-                'animation'   => Request::encodeFile(__DIR__ . '/../../images/wochenende.gif'),
-            ]);
-        } else {
-            return $this->replyToChat(
-                'Test!'
-            );
-        }
-
         if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
-            // return $this->replyToChat(
-            //     'Ja, saufen!' . PHP_EOL .
-            //     'https://www.youtube.com/watch?v=3aGf0t69_xk'
-            // );
+            if (
+                $message = $this->getMessage() ?:
+                $this->getEditedMessage() ?:
+                $this->getChannelPost() ?:
+                $this->getEditedChannelPost()
+            ) {
+                return Request::sendAnimation([
+                    'chat_id' => $message->getFrom()->getId(),
+                    'caption' => 'Ja, saufen!',
+                    'animation'   => 'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
+                ]);
+            } else {
+                return $this->replyToChat(
+                    'Fail, pls contact admin.'
+                );
+            }
         } else {
             return $this->replyToChat(
                 'Nein.'
