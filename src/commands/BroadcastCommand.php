@@ -49,52 +49,41 @@ class BroadcastCommand extends SystemCommand
     {
         date_default_timezone_set('Europe/Stockholm');
 
-        $message = false;
+        $caption = false;
+        $animation = false;
 
         switch (intval(date('w'))) {
             case 4: // thursday
-                $message = 'Morgen ist Freitag' . PHP_EOL .
-                    'https://www.youtube.com/watch?v=qcYTzV4HCyk';
+                $caption = 'Morgen ist Freitag';
+                $animation = 'https://c.tenor.com/H1kZm2ogXaUAAAAC/hallihallo-jodelo.gif';
                 break;
             case 5: // friday
-                $message = 'Heute ist Freitag!' . PHP_EOL .
-                    'https://www.youtube.com/watch?v=kfVsfOSbJY0';
+                $caption = 'Heute ist Freitag!';
+                $animation = 'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif';
                 break;
             case 6: // saturday
             case 0: // sunday
-                $message = 'Heute ist Wochenende!' . PHP_EOL .
-                    'https://www.youtube.com/watch?v=cjgldht4PKw';
+                $caption = 'Heute ist Wochenende!';
+                $animation = 'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif';
                 break;
         }
 
-        if ($message) {
-            // https://github.com/php-telegram-bot/core#send-message-to-all-active-chats
-            $results = Request::sendToActiveChats(
-                'sendMessage', // Callback function to execute (see Request.php methods)
-                ['text' => $message], // Param to evaluate the request
-                [
-                    'groups'      => true,
-                    'supergroups' => true,
-                    'channels'    => true,
-                    'users'       => true,
-                ]
-            );
-        }
+        if ($caption && $animation) {
+            $chats = DB::selectChats([
+                'groups'      => true,
+                'supergroups' => true,
+                'channels'    => true,
+                'users'       => true,
+            ]);
 
-        $chats = DB::selectChats([
-            'groups'      => true,
-            'supergroups' => true,
-            'channels'    => true,
-            'users'       => true,
-        ]);
-
-        if (is_array($chats)) {
-            foreach ($chats as $row) {
-                Request::sendAnimation([
-                    'chat_id' => $row['chat_id'],
-                    'caption' => 'Ja, saufen!',
-                    'animation'   => 'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
-                ]);
+            if (is_array($chats)) {
+                foreach ($chats as $row) {
+                    Request::sendAnimation([
+                        'chat_id' => $row['chat_id'],
+                        'caption' => $caption,
+                        'animation' => $animation,
+                    ]);
+                }
             }
         }
     }
