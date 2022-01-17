@@ -9,6 +9,7 @@ namespace Longman\TelegramBot\Commands\SystemCommands;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
+use Longman\TelegramBot\DB;
 use Longman\TelegramBot\Request;
 
 class BroadcastCommand extends SystemCommand
@@ -78,6 +79,23 @@ class BroadcastCommand extends SystemCommand
                     'users'       => true,
                 ]
             );
+        }
+
+        $chats = DB::selectChats([
+            'groups'      => true,
+            'supergroups' => true,
+            'channels'    => true,
+            'users'       => true,
+        ]);
+
+        if (is_array($chats)) {
+            foreach ($chats as $row) {
+                Request::sendAnimation([
+                    'chat_id' => $row['chat_id'],
+                    'caption' => 'Ja, saufen!',
+                    'animation'   => 'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
+                ]);
+            }
         }
     }
 }
