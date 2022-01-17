@@ -51,13 +51,22 @@ class WochenendeCommand extends SystemCommand
         $weekday = intval(date('w'));
         $hour = intval(date('H'));
 
-        if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
-            return Request::sendPhoto([
-                'chat_id' => $message->getFrom()->getId(),
-                'caption' => 'Ja, saufen!',
-                'photo'   => 'https://i.imgur.com/ZcQXwL1.gif',
-            ]);
+        $this->replyToChat(
+            'Test!'
+        );
 
+        Request::sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text'    => 'Test 2!',
+        ]);
+
+        return Request::sendPhoto([
+            'chat_id' => $message->getFrom()->getId(),
+            'caption' => 'Ja, saufen!',
+            'photo'   => 'https://i.imgur.com/ZcQXwL1.gif',
+        ]);
+
+        if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
             // return $this->replyToChat(
             //     'Ja, saufen!' . PHP_EOL .
             //     'https://www.youtube.com/watch?v=3aGf0t69_xk'
