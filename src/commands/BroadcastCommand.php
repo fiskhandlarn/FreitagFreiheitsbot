@@ -47,6 +47,11 @@ class BroadcastCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
+        // https://github.com/php-telegram-bot/core/issues/568#issuecomment-316715045
+        if ($this->telegram->getBotId() == $chat_id) {
+            return false;
+        }
+
         date_default_timezone_set('Europe/Stockholm');
 
         $caption = false;
