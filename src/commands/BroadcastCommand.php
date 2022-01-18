@@ -52,7 +52,9 @@ class BroadcastCommand extends SystemCommand
         date_default_timezone_set('Europe/Stockholm');
 
         $caption = false;
-        $animation = false;
+        $animations = [
+            'https://media1.giphy.com/media/lpnI0Rww0mER18u2k3/giphy.gif',
+        ];
 
         switch (intval(date('w'))) {
             case 1: // tuesday
@@ -66,16 +68,26 @@ class BroadcastCommand extends SystemCommand
                 break;
             case 4: // thursday
                 $caption = 'Morgen ist Freitag!';
-                $animation = 'https://c.tenor.com/H1kZm2ogXaUAAAAC/hallihallo-jodelo.gif';
+                $animations = [
+                    'https://c.tenor.com/H1kZm2ogXaUAAAAC/hallihallo-jodelo.gif',
+                    'https://i.imgur.com/AYH2i3P.gif',
+                    'https://c.tenor.com/EcoNhSPs7q0AAAAC/hoch-die-h%C3%A4nde-wochenende.gif',
+                ];
                 break;
             case 5: // friday
                 $caption = 'Heute ist Freitag!';
-                $animation = 'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif';
+                $animations = [
+                    'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
+                ];
                 break;
             case 6: // saturday
             case 0: // sunday
                 $caption = 'Heute ist Wochenende!';
-                $animation = 'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif';
+                $animations = [
+                    'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif',
+                    'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif',
+                    'https://media0.giphy.com/media/3o752jdW2dmll8zlvy/giphy.gif',
+                ];
                 break;
         }
 
@@ -91,18 +103,12 @@ class BroadcastCommand extends SystemCommand
                 foreach ($chats as $row) {
                     // https://github.com/php-telegram-bot/core/issues/568#issuecomment-316715045
                     if ($this->telegram->getBotId() != $row['chat_id']) {
-                        if ($animation) {
-                            $result = Request::sendAnimation([
-                                'chat_id' => $row['chat_id'],
-                                'caption' => $caption,
-                                'animation' => $animation,
-                            ]);
-                        } else {
-                            $result = Request::sendMessage([
-                                'chat_id' => $row['chat_id'],
-                                'text' => $caption,
-                            ]);
-                        }
+                        $result = Request::sendAnimation([
+                            'chat_id' => $row['chat_id'],
+                            'caption' => $caption,
+                            // https://www.php.net/manual/en/function.array-rand.php#93834
+                            'animation' => array_rand(array_flip($animations)),
+                        ]);
                     }
                 }
             }
