@@ -19,6 +19,11 @@
     "deployer/deployer": "^6.8",
     "deployer/recipes": "^6.2"
   },
+  "autoload": {
+    "psr-4": {
+      "Fiskhandlarn\\FreitagFreiheitsbot\\": "src/"
+    }
+  },
   "scripts": {
     "cs": "vendor/bin/phpcs",
     "lint": [
