@@ -16,13 +16,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 /** @var array $config */
 $config = require __DIR__ . '/src/config.php';
 
+use Fiskhandlarn\FreitagFreiheitsbot\FreitagTelegram;
+
 try {
     // Create Telegram API object
-    $telegram = new Longman\TelegramBot\Telegram($config['api_key'], $config['bot_username']);
-
-    /**
-     * Check `hook.php` for configuration code to be added here.
-     */
+    $telegram = new FreitagTelegram($config['api_key'], $config['bot_username']);
 
     // Run user selected commands
     $result = $telegram->runCommands($commands);
