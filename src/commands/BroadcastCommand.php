@@ -55,8 +55,17 @@ class BroadcastCommand extends SystemCommand
         $animation = false;
 
         switch (intval(date('w'))) {
+            case 1: // tuesday
+                $caption = 'Heute ist Montag.';
+                break;
+            case 2: // tuesday
+                $caption = 'Heute ist Dienstag.';
+                break;
+            case 3: // wednesday
+                $caption = 'Heute ist kleiner Samstag.';
+                break;
             case 4: // thursday
-                $caption = 'Morgen ist Freitag';
+                $caption = 'Morgen ist Freitag!';
                 $animation = 'https://c.tenor.com/H1kZm2ogXaUAAAAC/hallihallo-jodelo.gif';
                 break;
             case 5: // friday
@@ -70,7 +79,7 @@ class BroadcastCommand extends SystemCommand
                 break;
         }
 
-        if ($caption && $animation) {
+        if ($caption) {
             $chats = DB::selectChats([
                 'groups'      => true,
                 'supergroups' => true,
@@ -81,12 +90,19 @@ class BroadcastCommand extends SystemCommand
             if (is_array($chats)) {
                 foreach ($chats as $row) {
                     // https://github.com/php-telegram-bot/core/issues/568#issuecomment-316715045
-                    if ($this->telegram->getBotId() != $chat_id) {
-                        $result = Request::sendAnimation([
-                            'chat_id' => $row['chat_id'],
-                            'caption' => $caption,
-                            'animation' => $animation,
-                        ]);
+                    if ($this->telegram->getBotId() != $row['chat_id']) {
+                        if ($animation) {
+                            $result = Request::sendAnimation([
+                                'chat_id' => $row['chat_id'],
+                                'caption' => $caption,
+                                'animation' => $animation,
+                            ]);
+                        } else {
+                            $result = Request::sendMessage([
+                                'chat_id' => $row['chat_id'],
+                                'text' => $caption,
+                            ]);
+                        }
                     }
                 }
             }
