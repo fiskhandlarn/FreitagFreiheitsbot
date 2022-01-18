@@ -7,9 +7,9 @@
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
+use Longman\TelegramBot\DB;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
-use Longman\TelegramBot\DB;
 use Longman\TelegramBot\Request;
 
 class BroadcastCommand extends SystemCommand
@@ -47,10 +47,7 @@ class BroadcastCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
-        // https://github.com/php-telegram-bot/core/issues/568#issuecomment-316715045
-        if ($this->telegram->getBotId() == $chat_id) {
-            return false;
-        }
+        $result = new ServerResponse(['ok' => false]);
 
         date_default_timezone_set('Europe/Stockholm');
 
@@ -83,13 +80,18 @@ class BroadcastCommand extends SystemCommand
 
             if (is_array($chats)) {
                 foreach ($chats as $row) {
-                    Request::sendAnimation([
-                        'chat_id' => $row['chat_id'],
-                        'caption' => $caption,
-                        'animation' => $animation,
-                    ]);
+                    // https://github.com/php-telegram-bot/core/issues/568#issuecomment-316715045
+                    if ($this->telegram->getBotId() != $chat_id) {
+                        $result = Request::sendAnimation([
+                            'chat_id' => $row['chat_id'],
+                            'caption' => $caption,
+                            'animation' => $animation,
+                        ]);
+                    }
                 }
             }
         }
+
+        return $result;
     }
 }
