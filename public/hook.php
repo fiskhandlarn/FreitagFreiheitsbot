@@ -3,15 +3,11 @@
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Load all configuration options
-/** @var array $config */
-$config = require __DIR__ . '/../src/config.php';
-
 use Fiskhandlarn\FreitagFreiheitsbot\FreitagTelegram;
 
 try {
     // Create Telegram API object
-    $telegram = new FreitagTelegram($config['api_key'], $config['bot_username']);
+    $telegram = new FreitagTelegram();
 
     // Handle telegram webhook request
     $telegram->handle();

@@ -6,18 +6,17 @@ namespace Fiskhandlarn\FreitagFreiheitsbot;
 
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\TelegramLog;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class FreitagTelegram extends Telegram
 {
-
-    public function __construct(string $api_key, string $bot_username = '')
+    public function __construct()
     {
-        parent::__construct($api_key, $bot_username);
-
         $config = require __DIR__ . '/../src/config.php';
+
+        parent::__construct($config['api_key'], $config['bot_username']);
 
         // Add commands paths containing your custom commands
         $this->addCommandsPaths($config['commands']['paths']);
