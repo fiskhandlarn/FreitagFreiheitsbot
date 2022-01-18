@@ -16,6 +16,8 @@ class FreitagTelegram extends Telegram
     {
         $config = require __DIR__ . '/../src/config.php';
 
+        date_default_timezone_set('Europe/Stockholm');
+
         parent::__construct($config['api_key'], $config['bot_username']);
 
         // Add commands paths containing your custom commands
