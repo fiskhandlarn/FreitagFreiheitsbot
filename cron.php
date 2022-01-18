@@ -21,8 +21,13 @@ try {
     // Run user selected commands
     $result = $telegram->runCommands($commands);
 
-    echo (isset($result[0]) ? $result[0]->toJson() : 'failure') . "\n";
-    Longman\TelegramBot\TelegramLog::info($result);
+    if (isset($result[0])) {
+        echo $result[0]->toJson();
+        Longman\TelegramBot\TelegramLog::info($result[0]->toJson());
+    } else {
+        echo 'failure' . "\n";
+        Longman\TelegramBot\TelegramLog::error('cron failure');
+    }
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
