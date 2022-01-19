@@ -29,4 +29,5 @@ composer run lint
 
 ## Deploy
 
-TODO
+[/.github/workflows/cicd.prod.yml](./.github/workflows/cicd.prod.yml)
+
