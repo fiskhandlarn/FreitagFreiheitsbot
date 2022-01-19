@@ -57,7 +57,7 @@ class BroadcastCommand extends SystemCommand
         ];
 
         switch (intval(date('w'))) {
-            case 1: // tuesday
+            case 1: // monday
                 $caption = 'Heute ist Montag.';
                 break;
             case 2: // tuesday
