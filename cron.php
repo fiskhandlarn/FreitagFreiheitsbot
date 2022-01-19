@@ -23,6 +23,7 @@ try {
 
     if (isset($result[0])) {
         echo $result[0]->toJson();
+        Longman\TelegramBot\TelegramLog::info(date('Y-m-d H:i:s'));
         Longman\TelegramBot\TelegramLog::info($result[0]->toJson());
     } else {
         echo 'failure' . "\n";
