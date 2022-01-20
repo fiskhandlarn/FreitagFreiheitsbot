@@ -65,6 +65,10 @@ class BroadcastCommand extends SystemCommand
                 break;
             case 3: // wednesday
                 $caption = 'Heute ist kleiner Samstag.';
+                $animations = [
+                    'https://i.imgur.com/t0q4DIR.gif',
+                    'https://i.imgur.com/FUqEaOS.gif',
+                ];
                 break;
             case 4: // thursday
                 $caption = 'Morgen ist Freitag!';
@@ -72,6 +76,7 @@ class BroadcastCommand extends SystemCommand
                     'https://c.tenor.com/H1kZm2ogXaUAAAAC/hallihallo-jodelo.gif',
                     'https://i.imgur.com/AYH2i3P.gif',
                     'https://c.tenor.com/EcoNhSPs7q0AAAAC/hoch-die-h%C3%A4nde-wochenende.gif',
+                    'https://i.imgur.com/QxWHnu5.gif',
                 ];
                 break;
             case 5: // friday
@@ -87,6 +92,8 @@ class BroadcastCommand extends SystemCommand
                     'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif',
                     'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif',
                     'https://media0.giphy.com/media/3o752jdW2dmll8zlvy/giphy.gif',
+                    'https://i.imgur.com/ZiUnVYY.gif',
+                    'https://i.imgur.com/xivmjxg.gif',
                 ];
                 break;
         }
