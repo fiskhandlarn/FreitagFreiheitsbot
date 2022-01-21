@@ -49,9 +49,8 @@ class WochenendeCommand extends SystemCommand
         date_default_timezone_set('Europe/Stockholm');
 
         $weekday = intval(date('w'));
-        $hour = intval(date('H'));
 
-        if ((5 === $weekday && $hour >= 17) || 6 === $weekday || 0 === $weekday) {
+        if ((5 === $weekday && time() >= getTimestampForWeek(intval(date('W')))) || 6 === $weekday || 0 === $weekday) {
             if (
                 $message = $this->getMessage() ?:
                 $this->getEditedMessage() ?:
@@ -73,5 +72,30 @@ class WochenendeCommand extends SystemCommand
                 'Nein.'
             );
         }
+    }
+
+    private function getTimestampForWeek($week): int
+    {
+        $startTime = strtotime('Friday 12:00:00');
+        $endTime = strtotime('Friday 17:00:00');
+        $nrWeeks = (new \DateTime('December 28th'))->format('W'); // https://stackoverflow.com/a/21480444
+
+        $allOffets = [];
+        for ($i = 1; $i <= $nrWeeks; $i++) {
+            $allOffets [] = hexdec(crc32($i)); // https://stackoverflow.com/a/32100605
+        }
+
+        $allOffsetsSorted = $allOffets;
+        sort($allOffsetsSorted);
+
+        $firstOffset = $allOffsetsSorted[0];
+        $lastOffset = $allOffsetsSorted[$nrWeeks - 1];
+
+        return
+            intval(
+                ($allOffets[$week - 1] - $firstOffset)
+                / ($lastOffset - $firstOffset)
+                * ($endTime - $startTime)
+            ) + $startTime;
     }
 }
