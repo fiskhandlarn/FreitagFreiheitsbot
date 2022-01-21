@@ -82,7 +82,7 @@ class BroadcastCommand extends SystemCommand
             case 5: // friday
                 $caption = 'Heute ist Freitag!';
                 $animations = [
-                    'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
+                    'https://media0.giphy.com/media/3o752jdW2dmll8zlvy/giphy.gif',
                 ];
                 break;
             case 6: // saturday
@@ -91,7 +91,7 @@ class BroadcastCommand extends SystemCommand
                 $animations = [
                     'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif',
                     'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif',
-                    'https://media0.giphy.com/media/3o752jdW2dmll8zlvy/giphy.gif',
+                    'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
                     'https://i.imgur.com/ZiUnVYY.gif',
                     'https://i.imgur.com/xivmjxg.gif',
                 ];
