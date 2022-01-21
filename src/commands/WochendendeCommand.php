@@ -62,7 +62,7 @@ class WochenendeCommand extends SystemCommand
                 $this->getEditedChannelPost()
             ) {
                 return Request::sendAnimation([
-                    'chat_id' => $message->getFrom()->getId(),
+                    'chat_id' => ($message->getChat() ?: $message->getFrom())->getId(),
                     'caption' => 'Ja, saufen!',
                     'animation'   => 'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
                 ]);
