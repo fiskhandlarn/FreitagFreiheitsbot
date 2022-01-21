@@ -50,7 +50,7 @@ class WochenendeCommand extends SystemCommand
 
         $weekday = intval(date('w'));
 
-        if ((5 === $weekday && time() >= getTimestampForWeek(intval(date('W')))) || 6 === $weekday || 0 === $weekday) {
+        if ((5 === $weekday && time() >= $this->getTimestampForWeek(intval(date('W')))) || 6 === $weekday || 0 === $weekday) {
             if (
                 $message = $this->getMessage() ?:
                 $this->getEditedMessage() ?:
