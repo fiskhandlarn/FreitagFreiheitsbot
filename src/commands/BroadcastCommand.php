@@ -91,7 +91,6 @@ class BroadcastCommand extends SystemCommand
                 $animations = [
                     'https://c.tenor.com/xMpoWNu-4VIAAAAM/weekend-finally-weekend.gif',
                     'https://c.tenor.com/Kz-9sDk-zKMAAAAC/wochenende-hoch-die-h%C3%A4nde.gif',
-                    'https://c.tenor.com/8QtN1_MFXaIAAAAC/wochenende-saufen.gif',
                     'https://i.imgur.com/ZiUnVYY.gif',
                     'https://i.imgur.com/xivmjxg.gif',
                 ];
