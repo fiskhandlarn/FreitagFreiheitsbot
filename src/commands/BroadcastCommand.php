@@ -102,7 +102,7 @@ class BroadcastCommand extends SystemCommand
                 'groups'      => true,
                 'supergroups' => true,
                 'channels'    => true,
-                'users'       => true,
+                'users'       => false,
             ]);
 
             if (is_array($chats)) {
